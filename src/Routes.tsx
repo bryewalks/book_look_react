@@ -1,6 +1,7 @@
 import React from 'react';
 import './index.css';
 import BooksIndex from 'views/books/BooksIndex'
+import BooksSearch from 'views/books/BooksSearch'
 import { Route, 
           BrowserRouter as Router, 
           Switch 
@@ -13,6 +14,7 @@ export const Routes = () => {
         <div>
           <Switch>
             <Route exact path="/" component={BooksIndex} />
+            <Route path="/search" component={BooksSearch} />
           </Switch>
         </div>
       </Router>
