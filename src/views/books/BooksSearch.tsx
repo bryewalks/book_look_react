@@ -10,17 +10,26 @@ interface Book {
   read: boolean
 }
 
-const BooksIndex: React.FC = (props: any) => {
+const BooksSearch: React.FC = (props: any) => {
   const [books, setBooks] = React.useState([])
+  const [searchTerm, setSearchTerm] = React.useState("")
 
-  React.useEffect(() => {
+  const handleSearch = (event: any) => {
+    event.preventDefault();
+    let params = {
+      search_term: searchTerm
+    }
     axios
-      .get('/api/books')
+      .get('/api/books/search', {params})
       .then(response => setBooks(response.data))
-  }, []);
+  }
 
   return (
     <div>
+      <form onSubmit={handleSearch}>
+        <input type="search" onChange={e => {setSearchTerm(e.target.value)}} />
+        <button>Search</button>
+      </form>
       {books && (
         books.map((book: Book, index: number) => {
           return <div key={index}>
@@ -31,7 +40,6 @@ const BooksIndex: React.FC = (props: any) => {
                       {book.publisher}
                     <h3>Author</h3>
                       {book.author}
-                    <h3>Read?<input type="checkbox" name="read?" checked={book.read} /></h3>
                  </div>
         }
       ))}
@@ -39,4 +47,4 @@ const BooksIndex: React.FC = (props: any) => {
   )
 }
 
-export default BooksIndex
+export default BooksSearch
