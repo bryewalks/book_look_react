@@ -13,6 +13,10 @@ interface Book {
 const BooksSearch: React.FC = (props: any) => {
   const [books, setBooks] = React.useState([])
   const [searchTerm, setSearchTerm] = React.useState("")
+  const [title, setTitle] = React.useState("")
+  const [author, setAuthor] = React.useState("")
+  const [publisher, setPublisher] = React.useState("")
+  const [imageUrl, setImageUrl] = React.useState("")
 
   const handleSearch = (event: any) => {
     event.preventDefault();
@@ -22,6 +26,10 @@ const BooksSearch: React.FC = (props: any) => {
     axios
       .get('/api/books/search', {params})
       .then(response => setBooks(response.data))
+  }
+
+  const handleSubmit = (event: any, book: Book) => {
+    event.preventDefault();
   }
 
   return (
