@@ -24,7 +24,7 @@ const BooksIndex: React.FC = (props: any) => {
       {books && (
         books.map((book: Book, index: number) => {
           return <div key={index}>
-                    <img src={book.image_url} alt={book.title}></img>
+                    <img src={book.image_url || process.env.PUBLIC_URL + 'Book.png'} alt={book.title}></img>
                     <h3>Title</h3>
                       {book.title}
                     <h3>Publisher</h3>
