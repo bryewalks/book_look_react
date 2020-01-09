@@ -11,7 +11,7 @@ interface Book {
 }
 
 const BooksIndex: React.FC = (props: any) => {
-  const [books, setBooks] = React.useState([])
+  const [books, setBooks] = React.useState([] as any)
 
   React.useEffect(() => {
     axios
@@ -19,21 +19,14 @@ const BooksIndex: React.FC = (props: any) => {
       .then(response => setBooks(response.data))
   }, []);
 
-const markRead = (event: any, book: Book) => {
-  let params = {
-    title: book.title,
-    author: book.author,
-    publisher: book.publisher,
-    image_url: book.image_url,
-    read: true
-  }
+const updateRead = (event: any, book: Book, index: number) => {
+  event.preventDefault();
   axios
-  .put('/api/books/', params)
-  .then(response => console.log("success"))
-}
-
-const markUnread = (event: any, book: Book) => {
-  console.log(book)
+    .patch(`/api/books/${book.id}`, {read: !book.read})
+    .then(response => {
+                        books.splice(index, 1, response.data)
+                        setBooks([...books])
+                        })
 }
 
   return (
@@ -49,7 +42,7 @@ const markUnread = (event: any, book: Book) => {
                     <h3>Author</h3>
                       {book.author}
                     <br></br>
-                    {book.read ? <button onClick={ e => {markUnread(e, book)}}>Mark unread</button> : <button onClick={ e => {markRead(e, book)}}>Mark read</button>}
+                    <button onClick={ e => {updateRead(e, book, index)}}>{book.read ? "Mark unread" : "Mark read"}</button>
                  </div>
         }
       ))}
