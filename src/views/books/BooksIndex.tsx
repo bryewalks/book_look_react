@@ -19,6 +19,23 @@ const BooksIndex: React.FC = (props: any) => {
       .then(response => setBooks(response.data))
   }, []);
 
+const markRead = (event: any, book: Book) => {
+  let params = {
+    title: book.title,
+    author: book.author,
+    publisher: book.publisher,
+    image_url: book.image_url,
+    read: true
+  }
+  axios
+  .put('/api/books/', params)
+  .then(response => console.log("success"))
+}
+
+const markUnread = (event: any, book: Book) => {
+  console.log(book)
+}
+
   return (
     <div>
       {books && (
@@ -31,7 +48,8 @@ const BooksIndex: React.FC = (props: any) => {
                       {book.publisher}
                     <h3>Author</h3>
                       {book.author}
-                    <h3>Read?<input type="checkbox" name="read?" checked={book.read} /></h3>
+                    <br></br>
+                    {book.read ? <button onClick={ e => {markUnread(e, book)}}>Mark unread</button> : <button onClick={ e => {markRead(e, book)}}>Mark read</button>}
                  </div>
         }
       ))}
