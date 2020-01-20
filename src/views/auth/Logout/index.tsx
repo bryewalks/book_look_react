@@ -1,0 +1,20 @@
+import * as React from 'react'
+import axios from 'axios'
+
+const Logout: React.FC = (props: any) => {
+
+  React.useEffect(() => {
+    delete axios.defaults.headers.common["Authorization"];
+    localStorage.removeItem("jwt");
+    localStorage.removeItem("user_id");
+    props.history.push('/')
+  }, [props.history]);
+
+  return (
+    <div>
+      
+    </div>
+  )
+}
+
+export default Logout
