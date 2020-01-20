@@ -26,14 +26,12 @@ const BooksSearch: React.FC = (props: any) => {
 
   const handleSubmit = (event: any, book: Book) => {
     event.preventDefault();
-    console.log(book)
     let params = {
       title: book.title,
       author: book.author,
       publisher: book.publisher,
       image_url: book.image_url
     }
-    console.log(params)
     axios
     .post('/api/books/', params)
     .then(response => console.log("success"))
