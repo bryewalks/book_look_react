@@ -1,5 +1,6 @@
 import * as React from 'react'
 import axios from 'axios'
+import DisplayBook from 'components/DisplayBook'
 
 interface Book {
   id: number,
@@ -46,13 +47,7 @@ const BooksSearch: React.FC = (props: any) => {
       {books && (
         books.map((book: Book, index: number) => {
           return <div key={index}>
-                    <img src={book.image_url || process.env.PUBLIC_URL + 'Book.png'} alt={book.title}></img>
-                    <h3>Title</h3>
-                      {book.title}
-                    <h3>Publisher</h3>
-                      {book.publisher}
-                    <h3>Author</h3>
-                      {book.author}
+                    <DisplayBook book={book} />
                     <button onClick={ e => {handleSubmit(e, book)}}>Add</button>
                  </div>
         }
